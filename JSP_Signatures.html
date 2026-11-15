@@ -6,14 +6,122 @@
   <title>JSP Capital — Email Signatures</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;}
-    body{font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#eef0f3;margin:0;padding:32px 20px 80px;color:#333;}
-    .wrap{max-width:800px;margin:0 auto;}
+    html{max-width:100%;}
+    body{
+      font-family:'Segoe UI',Calibri,Arial,sans-serif;
+      background:#eef0f3;
+      margin:0;
+      padding:32px 20px 80px;
+      color:#333;
+      max-width:100%;
+      overflow-wrap:break-word;
+    }
+    .wrap{width:100%;max-width:800px;margin:0 auto;}
     .hdr{margin-bottom:30px;padding-bottom:16px;border-bottom:2px solid #c9a84c;}
-    .hdr h1{font-size:22px;color:#1a2340;margin:0 0 4px;font-weight:700;}
-    .hdr p{font-size:13px;color:#999;margin:0;}
-    .toc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:36px;}
-    @media(max-width:600px){.toc-grid{grid-template-columns:1fr 1fr;}}
-    @media(max-width:400px){.toc-grid{grid-template-columns:1fr;}}
+    .hdr h1{font-size:22px;color:#1a2340;margin:0 0 4px;font-weight:700;overflow-wrap:break-word;}
+    .hdr p{font-size:13px;color:#999;margin:0;overflow-wrap:break-word;}
+    .toc-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin-bottom:36px;
+    }
+    .toc-grid a{
+      min-width:0;
+      max-width:100%;
+      height:100%;
+      overflow-wrap:break-word;
+    }
+    .toc-grid a div{overflow-wrap:break-word;}
+
+    /* Person card chrome. Signature tables inside the preview boxes are left untouched. */
+    .wrap > div[id]{
+      max-width:100%;
+      min-width:0;
+      scroll-margin-top:12px;
+    }
+    .wrap > div[id] > div[style*="text-align:right"]{max-width:100%;}
+    .wrap > div[id] > div[style*="text-align:right"] a{
+      max-width:100%;
+      white-space:normal;
+      text-align:center;
+    }
+    .wrap > div[id] > div[style*="display:inline-block"]{
+      max-width:100%;
+      box-sizing:border-box;
+      white-space:normal;
+      overflow-wrap:anywhere;
+      line-height:1.45;
+    }
+    .wrap > div[id] > div[style*="letter-spacing:2px"]{
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+    .wrap > div[id] > div[style*="background:#fdfdfd"]{
+      max-width:100%;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior-x:contain;
+      scrollbar-width:thin;
+      scrollbar-color:#c9a84c #f3f1ea;
+    }
+    .wrap > div[id] > div[style*="background:#fdfdfd"]::-webkit-scrollbar{height:8px;}
+    .wrap > div[id] > div[style*="background:#fdfdfd"]::-webkit-scrollbar-track{background:#f3f1ea;border-radius:8px;}
+    .wrap > div[id] > div[style*="background:#fdfdfd"]::-webkit-scrollbar-thumb{background:#c9a84c;border-radius:8px;}
+    .wrap > div[id] > p{
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+    .wrap > div[id] > div[style*="margin-top:28px"]{max-width:100%;}
+    .wrap > div[id] > div[style*="margin-top:28px"] > table{
+      width:100%;
+      max-width:100%;
+      table-layout:fixed;
+    }
+    .wrap > div[id] > div[style*="margin-top:28px"] div,
+    .wrap > div[id] > div[style*="margin-top:28px"] code{
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+
+    @media (max-width:780px){
+      body{padding:24px 16px 64px;}
+      .hdr h1{font-size:20px;}
+      .toc-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+    @media (max-width:640px){
+      body{padding:20px 14px 56px;}
+      .wrap > div[id]{padding:20px 14px !important;}
+      .wrap > div[id] > div[style*="background:#fdfdfd"]{padding:14px !important;}
+      .wrap > div[id] > div[style*="margin-top:28px"] > table,
+      .wrap > div[id] > div[style*="margin-top:28px"] > table > tbody,
+      .wrap > div[id] > div[style*="margin-top:28px"] > table tr,
+      .wrap > div[id] > div[style*="margin-top:28px"] > table td{
+        display:block;
+        width:100% !important;
+        max-width:100% !important;
+        box-sizing:border-box;
+      }
+      .wrap > div[id] > div[style*="margin-top:28px"] > table td[width="2%"]{display:none;}
+      .wrap > div[id] > div[style*="margin-top:28px"] > table td{
+        padding-left:0 !important;
+        padding-right:0 !important;
+      }
+      .wrap > div[id] > div[style*="margin-top:28px"] td > div{margin-bottom:10px;}
+      .wrap > div[id] > div[style*="margin-top:28px"] td:last-child > div:last-child{margin-bottom:0;}
+    }
+    @media (max-width:520px){
+      body{padding:16px 12px 48px;}
+      .hdr{margin-bottom:20px;}
+      .hdr h1{font-size:19px;}
+      .toc-grid{grid-template-columns:minmax(0,1fr);margin-bottom:24px;}
+      .toc-grid a{padding:14px !important;}
+      .wrap > div[id]{padding:16px 12px !important;}
+      .wrap > div[id] > div[style*="background:#fdfdfd"]{padding:12px !important;}
+      .wrap > div[id] > div[style*="letter-spacing:2px"]{letter-spacing:1px !important;}
+      .wrap > div[id] > p{font-size:13px !important;}
+      .wrap > div[id] > div[style*="margin-top:28px"] div[style*="font-size:12px"]{font-size:13px !important;}
+    }
   </style>
 </head>
 <body>
